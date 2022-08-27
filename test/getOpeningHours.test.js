@@ -11,21 +11,21 @@ describe('Testes da função getOpeningHours', () => {
     expect(getOpeningHours('Tuesday', '09:00-AM')).toEqual('The zoo is open');
   });
   it('Verifica se retorna dia inválido', () => {
-    expect(getOpeningHours('Thu', '09:00-PM')).toThrow(Error('The day must be valid. Example: Monday'));
+    expect(() => getOpeningHours('Thu', '09:00-PM')).toThrow('The day must be valid. Example: Monday');
   });
   it('Verifica se retorna erro de abreviação', () => {
-    expect(getOpeningHours('Friday', '09:00-ZM')).toThrow(Error('The abbreviation must be \'AM\' or \'PM\''));
+    expect(() => getOpeningHours('Friday', '09:00-ZM')).toThrow('The abbreviation must be \'AM\' or \'PM\'');
   });
   it('Verifica se retorna mensagem de erro com hora em letra', () => {
-    expect(getOpeningHours('Saturday', 'C9:00-AM')).toThrow(Error('The hour should represent a number'));
+    expect(() => getOpeningHours('Saturday', 'C9:00-AM')).toThrow('The hour should represent a number');
   });
   it('Verifica se retorna mensagem de erro com minuto em letra', () => {
-    expect(getOpeningHours('Sunday', '09:c0-AM')).toThrow(Error('The minutes should represent a number'));
+    expect(() => getOpeningHours('Sunday', '09:c0-AM')).toThrow('The minutes should represent a number');
   });
   it('Verifica se retorna mensagem de erro caso a hora não esteja entre 0 e 12', () => {
-    expect(getOpeningHours('Monday', '13:00-AM')).toThrow(Error('The hour must be between 0 and 12'));
+    expect(() => getOpeningHours('Monday', '13:00-AM')).toThrow('The hour must be between 0 and 12');
   });
   it('Verifica se retorna mensagem de erro caso os minutos sejam passados erroneamente', () => {
-    expect(getOpeningHours('Tuesday', '09:60-AM')).toThrow(Error('The minutes must be between 0 and 59'));
+    expect(() => getOpeningHours('Tuesday', '09:60-AM')).toThrow('The minutes must be between 0 and 59');
   });
 });

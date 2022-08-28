@@ -34,6 +34,8 @@ function getObjToReturn() {
 function getSchedule(scheduleTarget) {
   if (scheduleTarget === undefined) {
     return getObjToReturn();
+  } if (!species.some((element) => scheduleTarget === element.name)) {
+    return getObjToReturn();
   }
   let animalArray = 0;
   species.forEach((element) => {
@@ -44,6 +46,6 @@ function getSchedule(scheduleTarget) {
   return animalArray;
 }
 
-console.log(getSchedule());
+console.log(getSchedule('opa'));
 
 module.exports = getSchedule;

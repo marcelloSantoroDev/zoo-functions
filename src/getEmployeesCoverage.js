@@ -1,63 +1,79 @@
 const data = require('../data/zoo_data');
 
 const { employees } = data;
+const { species } = data;
 
-// const employeeObj = {
-//   id: '',
-//   fullName: '',
-//   species: '',
-//   locations: '',
-// };
-// employees.forEach((element) => {
-//   if (employee === element.id) {
-//     employeeObj.id = element.id;
-//     employeeObj.fullName = `${element.firstName} ${element.lastName}`;
-//     employeeObj.species = element.responsibleFor;
-//   }
-// return employeeObj;
+const employeeObj = {
+  id: '',
+  fullName: '',
+  species: '',
+  locations: '',
+};
 
-// function getAnimalsArray(employee){        //PEGAR O NOME DO ANIMAL A PARTIR DE SEU ID (ARMAZENAR EM CONSTANTES)
-// return employees.reduce((acc, curr) => {
-//   if(curr.id === employee){
-//     acc
-//   }
-// },[])
-// }
-
-function organizeObj(employee) {
+function organizeObjById(employee) {
   return employees.reduce((acc, curr) => {
-    if (curr.id === employee) {
+    if (curr.id === employee.id) {
       acc.id = curr.id;
       acc.fullName = `${curr.firstName} ${curr.lastName}`;
-      acc.species = curr.responsibleFor;
+      acc.species = species.filter((element) => curr.responsibleFor
+        .find((arg) => element.id === arg))
+        .map((obj) => obj.name);
+      acc.locations = species.filter((element) => curr.responsibleFor
+        .find((arg) => element.id === arg))
+        .map((obj) => obj.location);
     }
     return acc;
-  }, {
-    id: '',
-    fullName: '',
-    species: '',
-    locations: '',
-  });
+  }, employeeObj);
 }
 
-console.log(organizeObj('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
+function organizeObjByName(employee) {
+  return employees.reduce((acc, curr) => {
+    if (curr.firstName === employee.name || curr.lastName === employee.name) {
+      acc.id = curr.id;
+      acc.fullName = `${curr.firstName} ${curr.lastName}`;
+      acc.species = species.filter((element) => curr.responsibleFor
+        .find((arg) => element.id === arg))
+        .map((obj) => obj.name);
+      acc.locations = species.filter((element) => curr.responsibleFor
+        .find((arg) => element.id === arg))
+        .map((obj) => obj.location);
+    }
+    return acc;
+  }, employeeObj);
+}
+
+function organizeObjForAll() {
+  const array = [];
+  employees.forEach((param) => {
+    const object = { id: '',
+      fullName: '',
+      species: '',
+      locations: '',
+    };
+    object.id = param.id;
+    object.fullName = `${param.firstName} ${param.lastName}`;
+    object.species = species.filter((element) => param.responsibleFor
+      .find((arg) => element.id === arg))
+      .map((obj) => obj.name);
+    object.locations = species.filter((element) => param.responsibleFor
+      .find((arg) => element.id === arg))
+      .map((obj) => obj.location);
+    array.push(object);
+  });
+  return array;
+}
 
 function getEmployeesCoverage(obj) {
-  // const getSomeName = employees.some((element) => element.firstName === Object.values(obj)[0]);
-  // const getSomeLastName = employees.some((element) => element.lastName === Object.values(obj)[0]);
-  // const findEmployeeByFirst = employees
-  //   .find((element) => element.firstName === Object.values(obj)[0]);
-  // const findEmployeeByLast = employees
-  //   .find((element) => element.lastName === Object.values(obj)[0]);
-  // if (obj === undefined) {
-  //   return employees;
-  // } if (getSomeName) {
-  //   return findEmployeeByFirst;
-  // } if (getSomeLastName) {
-  //   return findEmployeeByLast;
-  // }
+  if (obj === undefined) {
+    return organizeObjForAll();
+  }
+  const getSomeName = employees.some((element) => element.firstName === Object
+    .values(obj)[0] || element.lastName === Object
+    .values(obj)[0]);
+  const getSomeId = employees.some((element) => element.id === Object.values(obj)[0]);
+  if (getSomeName) return organizeObjByName(obj);
+  if (getSomeId) return organizeObjById(obj);
+  if (!getSomeId) throw new Error('Informações inválidas');
 }
-
-// console.log(getEmployeesCoverage({ name: 'Sharonda' }));
 
 module.exports = getEmployeesCoverage;

@@ -37,9 +37,9 @@ function getSchedule(scheduleTarget) {
     return { [scheduleTarget]: returnedObj[scheduleTarget] };
   }
   if (scheduleTarget === undefined) {
-    return getObjToReturn();
+    return returnedObj;
   } if (!species.some((element) => scheduleTarget === element.name)) {
-    return getObjToReturn();
+    return returnedObj;
   }
   let animalArray = 0;
   species.forEach((element) => {

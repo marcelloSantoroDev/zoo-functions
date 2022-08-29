@@ -1,6 +1,8 @@
 const data = require('../data/zoo_data');
 
 const { species } = data;
+const { hours } = data;
+const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = hours;
 
 function getScheduleArray(animal) {
   const animalSchedule = species
@@ -8,29 +10,37 @@ function getScheduleArray(animal) {
   return animalSchedule;
 }
 
+function getAvailability(day) {
+  return species.reduce((acc, curr) => {
+    if (curr.availability.includes(day)) {
+      acc.push(curr.name);
+    }
+    return acc;
+  }, []);
+}
+
 function getObjToReturn() {
   const scheduleObj = {
-    Tuesday: { officeHour: 'Open from 8am until 6pm',
-      exhibition: ['lions', 'tigers', 'bears', 'penguins', 'elephants', 'giraffes'] },
-    Wednesday: { officeHour: 'Open from 8am until 6pm',
-      exhibition: ['tigers', 'bears', 'penguins', 'otters', 'frogs', 'giraffes'] },
-    Thursday: { officeHour: 'Open from 10am until 8pm',
-      exhibition: ['lions', 'otters', 'frogs', 'snakes', 'giraffes'],
+    Tuesday: { officeHour: `Open from ${Tuesday.open}am until ${Tuesday.close}pm`,
+      exhibition: getAvailability('Tuesday') },
+    Wednesday: { officeHour: `Open from ${Wednesday.open}am until ${Wednesday.close}pm`,
+      exhibition: getAvailability('Wednesday') },
+    Thursday: { officeHour: `Open from ${Thursday.open}am until ${Thursday.close}pm`,
+      exhibition: getAvailability('Thursday'),
     },
-    Friday: { officeHour: 'Open from 10am until 8pm',
-      exhibition: ['tigers', 'otters', 'frogs', 'snakes', 'elephants', 'giraffes'] },
-    Saturday: { officeHour: 'Open from 8am until 10pm',
-      exhibition: ['lions', 'tigers', 'bears', 'penguins',
-        'otters', 'frogs', 'snakes', 'elephants'] },
-    Sunday: { officeHour: 'Open from 8am until 8pm',
-      exhibition: ['lions', 'bears', 'penguins', 'snakes', 'elephants'] },
+    Friday: { officeHour: `Open from ${Friday.open}am until ${Friday.close}pm`,
+      exhibition: getAvailability('Friday') },
+    Saturday: { officeHour: `Open from ${Saturday.open}am until ${Saturday.close}pm`,
+      exhibition: getAvailability('Saturday') },
+    Sunday: { officeHour: `Open from ${Sunday.open}am until ${Sunday.close}pm`,
+      exhibition: getAvailability('Sunday') },
     Monday: { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' },
   };
   return scheduleObj;
 }
 
-const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 function getSchedule(scheduleTarget) {
+  const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const returnedObj = getObjToReturn();
   const getSomeDay = daysArray.some((element) => scheduleTarget === element);
   if (getSomeDay) {
@@ -49,7 +59,5 @@ function getSchedule(scheduleTarget) {
   });
   return animalArray;
 }
-
-console.log(getSchedule('Wednesday'));
 
 module.exports = getSchedule;

@@ -16,7 +16,8 @@ function getObjToReturn() {
     Wednesday: { officeHour: 'Open from 8am until 6pm',
       exhibition: ['tigers', 'bears', 'penguins', 'otters', 'frogs', 'giraffes'] },
     Thursday: { officeHour: 'Open from 10am until 8pm',
-      exhibition: ['lions', 'otters', 'frogs', 'snakes', 'giraffes'] },
+      exhibition: ['lions', 'otters', 'frogs', 'snakes', 'giraffes'],
+    },
     Friday: { officeHour: 'Open from 10am until 8pm',
       exhibition: ['tigers', 'otters', 'frogs', 'snakes', 'elephants', 'giraffes'] },
     Saturday: { officeHour: 'Open from 8am until 10pm',
@@ -29,9 +30,26 @@ function getObjToReturn() {
   return scheduleObj;
 }
 
+// function getDay(day) {
+//   const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+//   const obj = getObjToReturn();
+//   const getSomeDay = daysArray.some((element) => day === element);
+//   if (getSomeDay) {
+//     return obj[day];
+//   }
+// }
+
+// console.log(getDay('Monday'));
+
 // console.log(getObjToReturn());
 
+const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 function getSchedule(scheduleTarget) {
+  const returnedObj = getObjToReturn();
+  const getSomeDay = daysArray.some((element) => scheduleTarget === element);
+  if (getSomeDay) {
+    return { [scheduleTarget]: returnedObj[scheduleTarget] };
+  }
   if (scheduleTarget === undefined) {
     return getObjToReturn();
   } if (!species.some((element) => scheduleTarget === element.name)) {
@@ -46,6 +64,6 @@ function getSchedule(scheduleTarget) {
   return animalArray;
 }
 
-console.log(getSchedule('opa'));
+console.log(getSchedule('Wednesday'));
 
 module.exports = getSchedule;

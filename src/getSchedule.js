@@ -1,7 +1,6 @@
 const data = require('../data/zoo_data');
 
 const { species } = data;
-// const { employees } = data;
 
 function getScheduleArray(animal) {
   const animalSchedule = species
@@ -29,19 +28,6 @@ function getObjToReturn() {
   };
   return scheduleObj;
 }
-
-// function getDay(day) {
-//   const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-//   const obj = getObjToReturn();
-//   const getSomeDay = daysArray.some((element) => day === element);
-//   if (getSomeDay) {
-//     return obj[day];
-//   }
-// }
-
-// console.log(getDay('Monday'));
-
-// console.log(getObjToReturn());
 
 const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 function getSchedule(scheduleTarget) {

@@ -187,12 +187,12 @@ function fifthConditions(options) {
   return sexFemaleSorted;
 }
 
-// function getAnimalMap(options) {
-//   if (getUndefined(options)) return ifIsUndefined();
-//   if (fifthConditions(options)) return ifSexFemaleSorted();
-//   if (thirdConditions(options)) return ifSexFemale();
-//   if (secondConditions(options)) return ifSortedIsTrue();
-//   if (conditions(options)) return ifIncludesNames();
-// }
+function getAnimalMap(options) {
+  if (getUndefined(options)) return ifIsUndefined();
+  if (fifthConditions(options)) return ifSexFemaleSorted();
+  if (thirdConditions(options)) return ifSexFemale();
+  if (secondConditions(options)) return ifSortedIsTrue();
+  if (conditions(options)) return ifIncludesNames();
+}
 
 module.exports = getAnimalMap;

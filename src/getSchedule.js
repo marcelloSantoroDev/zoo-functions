@@ -2,7 +2,7 @@ const data = require('../data/zoo_data');
 
 const { species } = data;
 const { hours } = data;
-const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = hours;
+// const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = hours;
 
 function getScheduleArray(animal) {
   const animalSchedule = species
@@ -19,25 +19,33 @@ function getAvailability(day) {
   }, []);
 }
 
+function checkIsOpen(day) {
+  if (day !== 'Monday') {
+    return `Open from ${hours[day].open}am until ${hours[day].close}pm`;
+  }
+  return { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' };
+}
+
 function getObjToReturn() {
   const scheduleObj = {
-    Tuesday: { officeHour: `Open from ${Tuesday.open}am until ${Tuesday.close}pm`,
+    Tuesday: { officeHour: checkIsOpen('Tuesday'),
       exhibition: getAvailability('Tuesday') },
-    Wednesday: { officeHour: `Open from ${Wednesday.open}am until ${Wednesday.close}pm`,
+    Wednesday: { officeHour: checkIsOpen('Wednesday'),
       exhibition: getAvailability('Wednesday') },
-    Thursday: { officeHour: `Open from ${Thursday.open}am until ${Thursday.close}pm`,
-      exhibition: getAvailability('Thursday'),
-    },
-    Friday: { officeHour: `Open from ${Friday.open}am until ${Friday.close}pm`,
+    Thursday: { officeHour: checkIsOpen('Thursday'),
+      exhibition: getAvailability('Thursday') },
+    Friday: { officeHour: checkIsOpen('Friday'),
       exhibition: getAvailability('Friday') },
-    Saturday: { officeHour: `Open from ${Saturday.open}am until ${Saturday.close}pm`,
+    Saturday: { officeHour: checkIsOpen('Saturday'),
       exhibition: getAvailability('Saturday') },
-    Sunday: { officeHour: `Open from ${Sunday.open}am until ${Sunday.close}pm`,
+    Sunday: { officeHour: checkIsOpen('Sunday'),
       exhibition: getAvailability('Sunday') },
-    Monday: { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' },
+    Monday: checkIsOpen('Monday'),
   };
   return scheduleObj;
 }
+
+console.log(getObjToReturn());
 
 function getSchedule(scheduleTarget) {
   const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

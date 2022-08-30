@@ -1,57 +1,3 @@
-// function ifSexMaleSorted() {
-//   const locationObj = { NE: [], NW: [], SE: [], SW: [] };
-//   species.forEach((element) => {
-//     if (element.location === 'NE') {
-//       locationObj.NE.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name).sort() });
-//     } if (element.location === 'NW') {
-//       locationObj.NW.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name).sort() });
-//     } if (element.location === 'SE') {
-//       locationObj.SE.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name).sort() });
-//     } if (element.location === 'SW') {
-//       locationObj.SW.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name).sort() });
-//     }
-//   });
-//   return locationObj;
-// }
-
-// function ifSexMale() {
-//   const locationObj = { NE: [], NW: [], SE: [], SW: [] };
-//   species.forEach((element) => {
-//     if (element.location === 'NE') {
-//       locationObj.NE.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name) });
-//     } if (element.location === 'NW') {
-//       locationObj.NW.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name) });
-//     } if (element.location === 'SE') {
-//       locationObj.SE.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name) });
-//     } if (element.location === 'SW') {
-//       locationObj.SW.push({ [element.name]: element.residents
-//         .filter((arg) => arg.sex === 'male').map((el) => el.name) });
-//     }
-//   });
-//   return locationObj;
-// }
-
-// console.log(ifSexMale());
-
-// function sixthConditions(options) {
-//   const sexmaleSorted = Object.keys(options)
-//     .includes('includeNames') && Object.values(options)
-//     .includes('male') && Object.keys(options).includes('sorted');
-//   return sexmaleSorted;
-// }
-// function forthConditions(options) {
-//   const sexMale = Object.keys(options)
-//     .includes('includeNames') && Object.values(options).includes('male');
-//   return sexMale;
-// }
-
 const data = require('../data/zoo_data');
 
 const { species } = data;
@@ -71,132 +17,54 @@ function ifIsUndefined() {
   });
   return locationObj;
 }
-// console.log(ifIsUndefined());
 
-function ifIncludesNames() {
-  const locationObj = { NE: [], NW: [], SE: [], SW: [] };
-  species.forEach((element) => {
-    if (element.location === 'NE') {
-      locationObj.NE.push({ [element.name]: element.residents.map((arg) => arg.name) });
-    } if (element.location === 'NW') {
-      locationObj.NW.push({ [element.name]: element.residents.map((arg) => arg.name) });
-    } if (element.location === 'SE') {
-      locationObj.SE.push({ [element.name]: element.residents.map((arg) => arg.name) });
-    } if (element.location === 'SW') {
-      locationObj.SW.push({ [element.name]: element.residents.map((arg) => arg.name) });
+function ifIncludesNames(options) {
+  return species.reduce((acc, curr) => {
+    if (!acc[curr.location]) {
+      acc[curr.location] = [];
     }
-  });
-  return locationObj;
-}
-
-// console.log(ifIncludesNames());
-
-function ifSortedIsTrue() {
-  const locationObj = { NE: [], NW: [], SE: [], SW: [] };
-  species.forEach((element) => {
-    if (element.location === 'NE') {
-      locationObj.NE.push({ [element.name]: element.residents.map((arg) => arg.name).sort() });
-    } if (element.location === 'NW') {
-      locationObj.NW.push({ [element.name]: element.residents.map((arg) => arg.name).sort() });
-    } if (element.location === 'SE') {
-      locationObj.SE.push({ [element.name]: element.residents.map((arg) => arg.name).sort() });
-    } if (element.location === 'SW') {
-      locationObj.SW.push({ [element.name]: element.residents.map((arg) => arg.name).sort() });
+    if (!options.sorted) {
+      acc[curr.location].push({ [curr.name]: curr.residents.map((arg) => arg.name) });
     }
-  });
-  return locationObj;
-}
-
-// console.log(ifSortedIsTrue());
-
-function ifSexFemale() {
-  const locationObj = { NE: [], NW: [], SE: [], SW: [] };
-  species.forEach((element) => {
-    if (element.location === 'NE') {
-      locationObj.NE.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name) });
-    } if (element.location === 'NW') {
-      locationObj.NW.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name) });
-    } if (element.location === 'SE') {
-      locationObj.SE.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name) });
-    } if (element.location === 'SW') {
-      locationObj.SW.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name) });
+    if (options.sorted) {
+      acc[curr.location].push({ [curr.name]: curr.residents.map((arg) => arg.name).sort() });
     }
-  });
-  return locationObj;
+    return acc;
+  }, {});
 }
 
-function ifSexFemaleSorted() {
-  const locationObj = { NE: [], NW: [], SE: [], SW: [] };
-  species.forEach((element) => {
-    if (element.location === 'NE') {
-      locationObj.NE.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name).sort() });
-    } if (element.location === 'NW') {
-      locationObj.NW.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name).sort() });
-    } if (element.location === 'SE') {
-      locationObj.SE.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name).sort() });
-    } if (element.location === 'SW') {
-      locationObj.SW.push({ [element.name]: element.residents
-        .filter((arg) => arg.sex === 'female').map((el) => el.name).sort() });
+function getSex(options) {
+  return species.reduce((acc, curr) => {
+    if (!acc[curr.location]) {
+      acc[curr.location] = [];
     }
-  });
-  return locationObj;
+    if (options.sex && !options.sorted) {
+      acc[curr.location]
+        .push({ [curr.name]: curr.residents
+          .filter((arg) => arg.sex === options.sex)
+          .map((el) => el.name) });
+    }
+    if (options.sorted) {
+      acc[curr.location]
+        .push({ [curr.name]: curr.residents
+          .filter((arg) => arg.sex === options.sex)
+          .map((el) => el.name).sort() });
+    }
+    return acc;
+  }, {});
 }
 
-function conditions(options) {
-  const a = Object.keys(options).includes('includeNames');
-  return a;
-}
+// console.log(getSex({ sex: 'female', sorted: true }).NE);
 
-function firstConditions(options) {
-  const ifError = !Object.keys(options)
-    .includes('includeNames') && Object.keys(options).includes('sex');
-  const ifErrorSorted = !Object.keys(options)
-    .includes('includeNames') && Object.keys(options)
-    .includes('sex') && Object.keys(options).includes('sorted');
-  return ifError || ifErrorSorted;
-}
-
-function getUndefined(options) {
-  return options === undefined || firstConditions(options);
-}
-
-function secondConditions(options) {
-  const nameSorted = Object.keys(options)
-    .includes('includeNames') && Object.keys(options)
-    .includes('sorted') && Object.values(options).includes(true);
-  return nameSorted;
-}
-
-function thirdConditions(options) {
-  const sexFemale = Object.keys(options)
-    .includes('includeNames') && Object.values(options).includes('female');
-  return sexFemale;
-}
-
-function fifthConditions(options) {
-  const sexFemaleSorted = Object.keys(options)
-    .includes('includeNames') && Object.values(options)
-    .includes('female') && Object.keys(options).includes('sorted');
-  return sexFemaleSorted;
-}
-
-function quebraIf(options) {
-  if (conditions(options)) return ifIncludesNames();
+function conditions1(options) {
+  const getOptions = options === undefined || !options.includeNames;
+  return getOptions;
 }
 
 function getAnimalMap(options) {
-  if (getUndefined(options)) return ifIsUndefined();
-  if (fifthConditions(options)) return ifSexFemaleSorted();
-  if (thirdConditions(options)) return ifSexFemale();
-  if (secondConditions(options)) return ifSortedIsTrue();
-  return quebraIf(options);
+  if (conditions1(options)) return ifIsUndefined();
+  if (options.sex) return getSex(options);
+  if (options.includeNames) return ifIncludesNames(options);
 }
 
 module.exports = getAnimalMap;

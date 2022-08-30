@@ -56,13 +56,13 @@ function getSex(options) {
 
 // console.log(getSex({ sex: 'female', sorted: true }).NE);
 
-function conditions1(options) {
+function conditions(options) {
   const getOptions = options === undefined || !options.includeNames;
   return getOptions;
 }
 
 function getAnimalMap(options) {
-  if (conditions1(options)) return ifIsUndefined();
+  if (conditions(options)) return ifIsUndefined();
   if (options.sex) return getSex(options);
   if (options.includeNames) return ifIncludesNames(options);
 }

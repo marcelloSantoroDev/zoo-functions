@@ -2,7 +2,6 @@ const data = require('../data/zoo_data');
 
 const { species } = data;
 const { hours } = data;
-const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = hours;
 
 function getScheduleArray(animal) {
   const animalSchedule = species
@@ -20,23 +19,16 @@ function getAvailability(day) {
 }
 
 function getObjToReturn() {
-  const scheduleObj = {
-    Tuesday: { officeHour: `Open from ${Tuesday.open}am until ${Tuesday.close}pm`,
-      exhibition: getAvailability('Tuesday') },
-    Wednesday: { officeHour: `Open from ${Wednesday.open}am until ${Wednesday.close}pm`,
-      exhibition: getAvailability('Wednesday') },
-    Thursday: { officeHour: `Open from ${Thursday.open}am until ${Thursday.close}pm`,
-      exhibition: getAvailability('Thursday'),
-    },
-    Friday: { officeHour: `Open from ${Friday.open}am until ${Friday.close}pm`,
-      exhibition: getAvailability('Friday') },
-    Saturday: { officeHour: `Open from ${Saturday.open}am until ${Saturday.close}pm`,
-      exhibition: getAvailability('Saturday') },
-    Sunday: { officeHour: `Open from ${Sunday.open}am until ${Sunday.close}pm`,
-      exhibition: getAvailability('Sunday') },
-    Monday: { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' },
-  };
-  return scheduleObj;
+  const getHours = Object.keys(hours).reduce((acc, curr) => {
+    acc[curr] = { officeHour: `Open from ${hours[curr].open}am until ${hours[curr].close}pm`,
+      exhibition: getAvailability(curr),
+    };
+    if (curr === 'Monday') {
+      acc[curr] = { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' };
+    }
+    return acc;
+  }, {});
+  return getHours;
 }
 
 function getSchedule(scheduleTarget) {
@@ -59,7 +51,5 @@ function getSchedule(scheduleTarget) {
   });
   return animalArray;
 }
-
-console.log(getSchedule('Sunday'));
 
 module.exports = getSchedule;

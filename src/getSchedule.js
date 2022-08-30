@@ -60,4 +60,6 @@ function getSchedule(scheduleTarget) {
   return animalArray;
 }
 
+console.log(getSchedule('Sunday'));
+
 module.exports = getSchedule;

@@ -14,11 +14,7 @@ function getOldestFromFirstSpecies(id) {
       getOldest = element;
     }
   });
-  const makeArray = [];
-  makeArray.push(getOldest.name);
-  makeArray.push(getOldest.sex);
-  makeArray.push(getOldest.age);
-  return makeArray;
+  return Object.values(getOldest);
 }
 
 module.exports = getOldestFromFirstSpecies;

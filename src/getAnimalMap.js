@@ -18,6 +18,8 @@ function ifIsUndefined() {
   return locationObj;
 }
 
+// Funções 'ifIncludesNames' e 'getSex' feitas com a ajuda de Erick Argollo - Turma 25 - A
+
 function ifIncludesNames(options) {
   return species.reduce((acc, curr) => {
     if (!acc[curr.location]) {
@@ -53,8 +55,6 @@ function getSex(options) {
     return acc;
   }, {});
 }
-
-// console.log(getSex({ sex: 'female', sorted: true }).NE);
 
 function conditions(options) {
   const getOptions = options === undefined || !options.includeNames;

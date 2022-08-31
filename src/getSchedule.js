@@ -37,13 +37,13 @@ function getObjToReturn() {
 }
 
 function getSchedule(scheduleTarget) {
+  const conditions = scheduleTarget === undefined
+  || !species.some((element) => scheduleTarget === element.name);
   const daysArray = Object.keys(getObjToReturn());
   if (daysArray.includes(scheduleTarget)) {
     return { [scheduleTarget]: getObjToReturn()[scheduleTarget] };
   }
-  if (scheduleTarget === undefined) {
-    return getObjToReturn();
-  } if (!species.some((element) => scheduleTarget === element.name)) {
+  if (conditions) {
     return getObjToReturn();
   }
   return getScheduleArray(scheduleTarget);

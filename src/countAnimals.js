@@ -10,10 +10,7 @@ const getObj = () => {
   return obj;
 };
 
-function countAnimals(animal) {
-  if (animal === undefined) {
-    return getObj();
-  }
+const conditions = (animal) => {
   const getSpecie = species.find((element) => element.name === animal.specie).residents;
   const getMaleSex = getSpecie.filter((element) => element.sex === 'male');
   const getFemaleSex = getSpecie.filter((element) => element.sex === 'female');
@@ -21,9 +18,15 @@ function countAnimals(animal) {
     return getSpecie.length;
   } if (animal.sex === 'male') {
     return getMaleSex.length;
-  } if (animal.sex === 'female') {
-    return getFemaleSex.length;
   }
+  return getFemaleSex.length;
+};
+
+function countAnimals(animal) {
+  if (animal === undefined) {
+    return getObj();
+  }
+  return conditions(animal);
 }
 
 module.exports = countAnimals;

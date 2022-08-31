@@ -4,9 +4,14 @@ const { species } = data;
 const { hours } = data;
 
 function getScheduleArray(animal) {
-  const animalSchedule = species
-    .find((element) => element.name === animal).availability;
-  return animalSchedule;
+  let animalArray = 0;
+  species.forEach((element) => {
+    if (animal === element.name) {
+      animalArray = species
+        .find((arg) => arg.name === animal).availability;
+    }
+  });
+  return animalArray;
 }
 
 function getAvailability(day) {
@@ -32,24 +37,16 @@ function getObjToReturn() {
 }
 
 function getSchedule(scheduleTarget) {
-  const daysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const returnedObj = getObjToReturn();
-  const getSomeDay = daysArray.some((element) => scheduleTarget === element);
-  if (getSomeDay) {
-    return { [scheduleTarget]: returnedObj[scheduleTarget] };
+  const daysArray = Object.keys(getObjToReturn());
+  if (daysArray.includes(scheduleTarget)) {
+    return { [scheduleTarget]: getObjToReturn()[scheduleTarget] };
   }
   if (scheduleTarget === undefined) {
-    return returnedObj;
+    return getObjToReturn();
   } if (!species.some((element) => scheduleTarget === element.name)) {
-    return returnedObj;
+    return getObjToReturn();
   }
-  let animalArray = 0;
-  species.forEach((element) => {
-    if (scheduleTarget === element.name) {
-      animalArray = getScheduleArray(scheduleTarget);
-    }
-  });
-  return animalArray;
+  return getScheduleArray(scheduleTarget);
 }
 
 module.exports = getSchedule;

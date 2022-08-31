@@ -7,9 +7,9 @@ function countEntrants(entrants) {
   entrants.forEach((element) => {
     if (element.age < 18) {
       obj.child += 1;
-    } else if (element.age >= 18 && element.age < 50) {
+    } if (element.age >= 18 && element.age < 50) {
       obj.adult += 1;
-    } else if (element.age >= 50) {
+    } if (element.age >= 50) {
       obj.senior += 1;
     }
   });

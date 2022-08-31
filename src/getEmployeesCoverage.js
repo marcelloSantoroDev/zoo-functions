@@ -63,10 +63,7 @@ function organizeObjForAll() {
   return array;
 }
 
-function getEmployeesCoverage(obj) {
-  if (obj === undefined) {
-    return organizeObjForAll();
-  }
+const conditions = (obj) => {
   const getSomeName = employees.some((element) => element.firstName === Object
     .values(obj)[0] || element.lastName === Object
     .values(obj)[0]);
@@ -74,6 +71,13 @@ function getEmployeesCoverage(obj) {
   if (getSomeName) return organizeObjByName(obj);
   if (getSomeId) return organizeObjById(obj);
   if (!getSomeId) throw new Error('Informações inválidas');
+};
+
+function getEmployeesCoverage(obj) {
+  if (!obj) {
+    return organizeObjForAll();
+  }
+  return conditions(obj);
 }
 
 module.exports = getEmployeesCoverage;

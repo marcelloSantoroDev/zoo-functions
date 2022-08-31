@@ -57,7 +57,7 @@ function getSex(options) {
 }
 
 function conditions(options) {
-  const getOptions = options === undefined || !options.includeNames;
+  const getOptions = !options || !options.includeNames;
   return getOptions;
 }
 
